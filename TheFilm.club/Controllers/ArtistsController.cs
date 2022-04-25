@@ -50,7 +50,7 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
-        //Get/Edit/1
+        //Get/Edit
         public IActionResult Edit(int id)
         {
             var viewModel = new ArtistsEditViewModel();
@@ -74,6 +74,18 @@ namespace TheFilm.club.Controllers
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
+            return View(viewModel);
+        }
+
+        //Get/Details
+        public IActionResult Details(int id)
+        {
+            var viewModel = new ArtistsDetailsViewModel();
+            var dbAct = _dbContext.Artists.First(r => r.Id == id);
+            viewModel.Picture = dbAct.Picture;
+            viewModel.Name = dbAct.Name;
+            viewModel.Biography = dbAct.Biography;
+
             return View(viewModel);
         }
     }
