@@ -24,7 +24,14 @@ namespace TheFilm.club.Controllers
                     Biography = dbArt.Biography
                 }).ToList();
             return View(viewModel);
+        }
 
+        //Get
+        public IActionResult Create()
+        {
+            var viewModel = new ArtistsNewViewModel();
+
+            return View(viewModel);
         }
     }
 }
