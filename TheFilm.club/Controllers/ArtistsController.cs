@@ -50,5 +50,31 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
+        //Get/Edit/1
+        public IActionResult Edit(int id)
+        {
+            var viewModel = new ArtistsEditViewModel();
+            var dbAct = _dbContext.Artists.First(r => r.Id == id);
+            viewModel.Picture = dbAct.Picture;
+            viewModel.Name = dbAct.Name;
+            viewModel.Biography = dbAct.Biography;
+
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, ArtistsEditViewModel viewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var dbAct = _dbContext.Artists.First(r => r.Id == id);
+                dbAct.Picture = viewModel.Picture;
+                dbAct.Name = viewModel.Name;
+                dbAct.Biography = viewModel.Biography;
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(viewModel);
+        }
     }
 }
