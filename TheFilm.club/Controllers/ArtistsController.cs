@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TheFilm.club.Data;
+using TheFilm.club.Models;
 using TheFilm.club.ViewModels;
 
 namespace TheFilm.club.Controllers
@@ -31,6 +32,22 @@ namespace TheFilm.club.Controllers
         {
             var viewModel = new ArtistsNewViewModel();
 
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(ArtistsNewViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbAct = new Artist();
+                _dbContext.Artists.Add(dbAct);
+                dbAct.Name = viewModel.Name;
+                dbAct.Picture = viewModel.Picture;
+                dbAct.Biography = viewModel.Biography;
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View(viewModel);
         }
     }

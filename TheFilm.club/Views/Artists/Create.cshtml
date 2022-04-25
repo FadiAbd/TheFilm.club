@@ -1,0 +1,54 @@
+﻿@model TheFilm.club.ViewModels.ArtistsNewViewModel
+
+@{
+    ViewData["Title"] = "Create a new Artist";
+}
+
+<div class="row-text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Create a New Actor</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group text-center">
+                        <img id="PicturePreview"  class="border-info rounded-circle" style="max-width: 150px" />
+                    </div>
+                <div class="form-group">
+                    <label asp-for="Picture" class="control-label"> </label>
+                    <input  asp-for="Picture" class="form-control" />
+                    <span asp-validation-for="Picture" class="text-danger"></span>
+                </div>
+                 
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"> </label>
+                    <input  asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                 
+                <div class="form-group">
+                    <label asp-for="Biography" class="control-label"> </label>
+                    <input  asp-for="Biography" class="form-control" />
+                    <span asp-validation-for="Biography" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-outline-success float-right"/>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+    <script>
+      
+        $("#Picture").on("change", function () {
+            var output = document.getElementById('PicturePreview');
+            output.src = $(this).val();
+        })
+    </script>
+}
