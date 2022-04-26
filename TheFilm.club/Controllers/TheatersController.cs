@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TheFilm.club.Data;
+using TheFilm.club.Models;
 using TheFilm.club.ViewModels;
 
 namespace TheFilm.club.Controllers
@@ -23,6 +24,27 @@ namespace TheFilm.club.Controllers
                         Name = dbCin.Name,
                         Description = dbCin.Description
                     }).ToList();
+            return View(viewModel);
+        }
+        public IActionResult Create()
+        {
+            var viewModel = new TheatersNewViewModel();
+
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Create(TheatersNewViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbTheater = new Theater();
+                _dbContext.Theaters.Add(dbTheater);
+                dbTheater.Name = viewModel.Name;
+                dbTheater.Logo = viewModel.Logo;
+                dbTheater.Description = viewModel.Description;
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View(viewModel);
         }
     }
