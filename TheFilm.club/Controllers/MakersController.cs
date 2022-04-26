@@ -49,5 +49,31 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
+        //Get/Edit
+        public IActionResult Edit(int id)
+        {
+            var viewModel = new MakersEditViewModel();
+            var dbPro = _dbContext.Makers.First(r => r.Id == id);
+            viewModel.Picture = dbPro.Picture;
+            viewModel.Name = dbPro.Name;
+            viewModel.Biography = dbPro.Biography;
+
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, MakersEditViewModel viewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var dbPro = _dbContext.Makers.First(r => r.Id == id);
+                dbPro.Picture = viewModel.Picture;
+                dbPro.Name = viewModel.Name;
+                dbPro.Biography = viewModel.Biography;
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(viewModel);
+        }
     }
 }
