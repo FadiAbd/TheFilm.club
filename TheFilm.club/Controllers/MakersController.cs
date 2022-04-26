@@ -88,5 +88,24 @@ namespace TheFilm.club.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult Delete(int? id)
+        {
+
+            var viewModel = new MakersDeleteViewModel();
+            var dbDel = _dbContext.Makers.Find(id);
+            if (dbDel == null) return View("Not foud");
+            return View(viewModel);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var dbDel = _dbContext.Makers.Find(id);
+            if (dbDel == null) return View("NotFound");
+
+            _dbContext.Remove(dbDel);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
