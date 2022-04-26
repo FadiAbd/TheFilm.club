@@ -1,0 +1,49 @@
+﻿@model TheFilm.club.ViewModels.MakersIndexViewModel
+
+ @{
+        ViewData["Title"] = "List of Makers";
+  }
+
+   <div class="row">
+    <div class="col-md-8 offset-md-2">
+    <table class="table ">
+        <thead>
+                 <tr class="text-center">
+                     <th>Picture</th>
+                     <th>Name</th>
+                     <th>Biography</th>
+                     <th>Actions</th>
+                 </tr>
+        </thead>
+         <tbody>
+            @foreach (var maker in Model.Makers)
+            {
+                <tr>
+                     <td class="align-middle">
+                            <img class="rounded-circle" src="@maker.Picture" alt="@maker.Name" style="max-width: 150px">
+                        </td>
+                     <td class="align-middle">
+                            @Html.DisplayFor(modelItem => maker.Name)
+                        </td>
+                        <td class="align-middle">
+                               @Html.DisplayFor(modelItem => maker.Biography)
+                        </td>
+                      <td class="align-middle">
+                            <a asp-controller="Makers" asp-action="Edit" asp-route-id="@maker.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a> |
+                             <a asp-controller="Makers" asp-action="Details" asp-route-id="@maker.Id" class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a> |
+                              <a asp-controller="Makers" asp-action="Delete" asp-route-id="@maker.Id" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Delete</a> 
+                      </td>
+                    
+                </tr>
+            }
+
+         </tbody>
+    </table>
+  </div>
+ </div>
+   <div style="position: fixed; right: 25px; bottom: 25px;" class="text-white">
+    <a asp-controller="Makers" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New </a>
+</div>
+@*@await Html.PartialAsync("_CreateItem", "Makers") *@
+
+
