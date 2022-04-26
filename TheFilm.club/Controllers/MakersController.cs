@@ -75,5 +75,18 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
+
+        public IActionResult Details(int id)
+        {
+            var viewModel = new MakersDetailsViewModel();
+            var dbAct = _dbContext.Makers.First(r => r.Id == id);
+
+            viewModel.Picture = dbAct.Picture;
+            viewModel.Name = dbAct.Name;
+            viewModel.Biography = dbAct.Biography;
+
+
+            return View(viewModel);
+        }
     }
 }
