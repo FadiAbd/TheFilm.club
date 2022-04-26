@@ -1,0 +1,48 @@
+﻿@model TheFilm.club.ViewModels.TheatersIndexViewModel
+
+ @{
+        ViewData["Title"] = "List of Theaters";
+  }
+
+    <div class="row">
+    <div class="col-md-8 offset-md-2">
+    <table class="table ">
+        <thead>
+                 <tr class="text-center">
+                     <th>Logo</th>
+                     <th>Name</th>
+                     <th>Description</th>
+                     <th>Actions</th>
+                 </tr>
+        </thead>
+         <tbody>
+            @foreach (var theater in Model.Theaters)
+            {
+                <tr>
+                     <td class="align-middle">
+                            <img class="rounded-circle" src="@theater.Logo" alt="@theater.Name" style="max-width: 150px">
+                        </td>
+                     <td class="align-middle">
+                            @Html.DisplayFor(modelItem => theater.Name)
+                        </td>
+                        <td class="align-middle">
+                               @Html.DisplayFor(modelItem => theater.Description)
+                        </td>
+                      <td class="align-middle">
+                            <a asp-controller="Theaters" asp-action="Edit" asp-route-id="@theater.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a> |
+                             <a asp-controller="Theaters" asp-action="Details" asp-route-id="@theater.Id" class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a> |
+                              <a asp-controller="Theaters" asp-action="Delete" asp-route-id="@theater.Id" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Delete</a> 
+                      </td>
+                    
+                </tr>
+            }
+
+         </tbody>
+    </table>
+  </div>
+ </div>
+    <div style="position: fixed; right: 25px; bottom: 25px;" class="text-white">
+    <a asp-controller="Theaters" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New </a>
+</div>
+@*@await Html.PartialAsync("_CreateItem", "Theaters")*@ 
+
