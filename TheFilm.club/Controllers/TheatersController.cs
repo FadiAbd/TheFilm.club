@@ -47,5 +47,64 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
+
+        public IActionResult Edit(int id)
+        {
+            var viewModel = new TheatersEditViewModel();
+            var dbTheater = _dbContext.Theaters.First(r => r.Id == id);
+            viewModel.Logo = dbTheater.Logo;
+            viewModel.Name = dbTheater.Name;
+            viewModel.Description = dbTheater.Description;
+
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, TheatersEditViewModel viewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var dbCin = _dbContext.Theaters.First(r => r.Id == id);
+                dbCin.Logo = viewModel.Logo;
+                dbCin.Name = viewModel.Name;
+                dbCin.Description = viewModel.Description;
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(viewModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var viewModel = new TheatersDetailsViewModel();
+            var dbTheater = _dbContext.Theaters.First(r => r.Id == id);
+
+            viewModel.Logo = dbTheater.Logo;
+            viewModel.Name = dbTheater.Name;
+            viewModel.Description = dbTheater.Description;
+
+
+            return View(viewModel);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+
+            var viewModel = new TheaterDeleteViewModel();
+            var dbTheater = _dbContext.Theaters.Find(id);
+            if (dbTheater == null) return View("NotFoud");
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var dbTheater = _dbContext.Theaters.Find(id);
+            if (dbTheater == null) return View("NotFound");
+
+            _dbContext.Remove(dbTheater);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
