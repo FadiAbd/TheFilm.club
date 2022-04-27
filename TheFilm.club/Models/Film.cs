@@ -12,16 +12,16 @@ namespace TheFilm.club.Models
     {
         [Key]
         public int Id { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
-        public string Picture { get; set; }
+        public string Poster{ get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime  EndDate{ get; set; }
         public FilmCategory FilmCategory { get; set; }
         //Relationships
-        public List<Artist_Film> Artist_Films { get; set; }
+        public List<Artist_Film> Artists_Films { get; set; }
         //Theater
         public int TheaterId { get; set; }
 

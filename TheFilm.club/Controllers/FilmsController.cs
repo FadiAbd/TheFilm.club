@@ -13,8 +13,18 @@ namespace TheFilm.club.Controllers
         }
         public async Task <IActionResult> Index()
         {
-           var allFilms = await _service.GetAllAsync();
+           var allFilms = await _service.GetAllAsync(n => n.Theater);
             return View(allFilms);
+        }
+        //Get/Films/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var filmDetail = await _service.GetFilmByIdAsync(id);
+            return View(filmDetail);
+        }
+        public IActionResult Create()
+        {
+            return View();
         }
     }
 }

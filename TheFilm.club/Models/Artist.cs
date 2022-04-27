@@ -25,6 +25,6 @@ namespace TheFilm.club.Models
         [Required(ErrorMessage = "Biography is required")]
         public string Biography { get; set; }
 
-        public List<Artist_Film> Artist_Films { get; set; }
+        public List<Artist_Film> Artists_Films { get; set; }
     }
 }

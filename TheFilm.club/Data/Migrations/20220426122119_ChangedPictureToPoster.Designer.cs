@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheFilm.club.Data;
 
 namespace TheFilm.club.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220426122119_ChangedPictureToPoster")]
+    partial class ChangedPictureToPoster
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +258,7 @@ namespace TheFilm.club.Data.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("Artists_Films");
+                    b.ToTable("Artist_Films");
                 });
 
             modelBuilder.Entity("TheFilm.club.Models.Film", b =>
@@ -402,13 +404,13 @@ namespace TheFilm.club.Data.Migrations
             modelBuilder.Entity("TheFilm.club.Models.Artist_Film", b =>
                 {
                     b.HasOne("TheFilm.club.Models.Artist", "Artist")
-                        .WithMany("Artists_Films")
+                        .WithMany("Artist_Films")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TheFilm.club.Models.Film", "Film")
-                        .WithMany("Artists_Films")
+                        .WithMany("Artist_Films")
                         .HasForeignKey("FilmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -439,12 +441,12 @@ namespace TheFilm.club.Data.Migrations
 
             modelBuilder.Entity("TheFilm.club.Models.Artist", b =>
                 {
-                    b.Navigation("Artists_Films");
+                    b.Navigation("Artist_Films");
                 });
 
             modelBuilder.Entity("TheFilm.club.Models.Film", b =>
                 {
-                    b.Navigation("Artists_Films");
+                    b.Navigation("Artist_Films");
                 });
 
             modelBuilder.Entity("TheFilm.club.Models.Maker", b =>
