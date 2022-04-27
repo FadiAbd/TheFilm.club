@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using TheFilm.club.Data.Services;
 
@@ -22,8 +23,12 @@ namespace TheFilm.club.Controllers
             var filmDetail = await _service.GetFilmByIdAsync(id);
             return View(filmDetail);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var viewModel = await _service.GetNewFilmValues();
+            ViewBag.Theaters = new SelectList(viewModel.Theaters,"Id","Name");
+            ViewBag.Makers = new SelectList(viewModel.Theaters, "Id", "Name");
+            ViewBag.Artists = new SelectList(viewModel.Theaters, "Id", "Name");
             return View();
         }
     }
