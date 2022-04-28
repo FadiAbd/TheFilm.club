@@ -8,6 +8,7 @@ namespace TheFilm.club.ViewModels
 {
     public class FilmsNewViewModel
     {
+        public int Id { get; set; }
         [Display(Name = "Film name")]
         [Required(ErrorMessage ="Name is required!")]
         public string Name { get; set; }

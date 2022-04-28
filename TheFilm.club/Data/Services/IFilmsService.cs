@@ -8,6 +8,8 @@ namespace TheFilm.club.Data.Services
     public interface IFilmsService:IEntityRepository<Film>
     {
         Task<Film> GetFilmByIdAsync(int id);
-        Task<FilmsViewModel> GetNewFilmValues();
+        Task<FilmsViewModel> NewFilmValues();
+        Task AddNewFilmAsync(FilmsNewViewModel viewModel);
+        Task UpdateFilmAsync(FilmsNewViewModel viewModel);
     }
 }
