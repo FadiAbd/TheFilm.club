@@ -19,6 +19,19 @@ namespace TheFilm.club.Controllers
            var allFilms = await _service.GetAllAsync(n => n.Theater);
             return View(allFilms);
         }
+
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allFilms = await _service.GetAllAsync(n => n.Theater);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filterResult = allFilms.Where(n => n.Name.Contains(searchString) || n.Description.Contains
+                (searchString)).ToList();
+                return View("Index", filterResult);
+            }
+            return View("Index",allFilms);
+        }
+
         //Get/Films/Details/1
         public async Task<IActionResult> Details(int id)
         {
