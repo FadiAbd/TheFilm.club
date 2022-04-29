@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheFilm.club.Data;
 
 namespace TheFilm.club.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429111345_CustomerOrderAndCustomerOrderItem")]
+    partial class CustomerOrderAndCustomerOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,29 +261,6 @@ namespace TheFilm.club.Data.Migrations
                     b.ToTable("Artists_Films");
                 });
 
-            modelBuilder.Entity("TheFilm.club.Models.BasketItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BasketId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FilmId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilmId");
-
-                    b.ToTable("BasketItems");
-                });
-
             modelBuilder.Entity("TheFilm.club.Models.CustomerOrder", b =>
                 {
                     b.Property<int>("Id")
@@ -486,15 +465,6 @@ namespace TheFilm.club.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Artist");
-
-                    b.Navigation("Film");
-                });
-
-            modelBuilder.Entity("TheFilm.club.Models.BasketItem", b =>
-                {
-                    b.HasOne("TheFilm.club.Models.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId");
 
                     b.Navigation("Film");
                 });
