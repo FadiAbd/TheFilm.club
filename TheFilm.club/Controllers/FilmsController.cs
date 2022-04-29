@@ -65,7 +65,7 @@ namespace TheFilm.club.Controllers
         {
             var filmDetails = await _service.GetFilmByIdAsync(id);
             if (filmDetails == null) return View("NotFound");
-                var response = new FilmsNewViewModel()
+                var result = new FilmsNewViewModel()
                 {
                     Id = filmDetails.Id,
                     Name = filmDetails.Name,
@@ -86,7 +86,8 @@ namespace TheFilm.club.Controllers
             ViewBag.Theaters = new SelectList(filmsViewModel.Theaters, "Id", "Name");
             ViewBag.Makers = new SelectList(filmsViewModel.Makers, "Id", "Name");
             ViewBag.Artists = new SelectList(filmsViewModel.Artists, "Id", "Name");
-            return View(response);
+            
+            return View(result);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(int id,FilmsNewViewModel film)
@@ -102,6 +103,7 @@ namespace TheFilm.club.Controllers
                 return View(film);
             }
             await _service.UpdateFilmAsync(film);
+           
             return RedirectToAction(nameof(Index));
         }
     }

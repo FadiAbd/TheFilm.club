@@ -72,7 +72,7 @@ namespace TheFilm.club.Data.Services
         public async Task UpdateFilmAsync(FilmsNewViewModel viewModel)
         {
             var dbFilm = await _dbContext.Films.FirstOrDefaultAsync(n => n.Id == viewModel.Id);
-             if (dbFilm == null)
+             if (dbFilm != null)
              {
 
 
