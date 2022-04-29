@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheFilm.club.Models;
@@ -20,6 +23,19 @@ namespace TheFilm.club.Data.Basket
         {
             return BasketItems ?? (BasketItems = _dbContext.BasketItems.Where(n => n.BasketId ==
             BasketId).Include(n => n.Film).ToList());
+        }
+
+        public static Basket GetBasket(IServiceProvider services)
+        {
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var dbContext = services.GetService<ApplicationDbContext>();
+
+            string basketId = session.GetString("BasketId") ?? Guid.NewGuid().ToString();
+            session.SetString("BasketId", basketId);
+            return new Basket(dbContext)
+            {
+                BasketId = basketId,
+            };
         }
 
         public void AddItemToBasket(Film film)
