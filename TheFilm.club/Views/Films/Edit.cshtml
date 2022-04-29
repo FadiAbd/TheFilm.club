@@ -1,0 +1,105 @@
+﻿@model TheFilm.club.ViewModels.FilmsNewViewModel
+
+
+
+@{
+    ViewData["Title"] = "Update a Film";
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Update a film</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartDate" class="control-label"></label>
+                                <input asp-for="StartDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndDate" class="control-label"></label>
+                                <input asp-for="EndDate" type="date" class="form-control" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label"></label>
+                                <input asp-for="Price" type="number" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Poster" class="control-label"></label>
+                                <input asp-for="Poster" class="form-control" />
+                                <span asp-validation-for="Poster" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="TheaterId" class="control-label"></label>
+                                <select asp-for="TheaterId" class="form-control" asp-items="ViewBag.Theaters"></select>
+                                <span asp-validation-for="TheaterId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="FilmCategory" class="control-label"></label>
+                                <select asp-for="FilmCategory" class="form-control" asp-items="Html.GetEnumSelectList<FilmCategory>()"></select>
+                                <span asp-validation-for="FilmCategory" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MakerId" class="control-label"></label>
+                                <select asp-for="MakerId" class="form-control" asp-items="ViewBag.Makers"></select>
+                                <span asp-validation-for="MakerId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ArtistIds" class="control-label"></label>
+                                <select asp-for="ArtistIds" class="form-control" asp-items="ViewBag.Artists" multiple></select>
+                                <span asp-validation-for="ArtistIds" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="PosterPreview" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show all Films</a>
+                    </div>
+                </form>
+             </div>
+        </div>
+
+    </div>
+</div>
+@*when the poster is changed or updated it calls a function to show the shosen poster *@
+@section Scripts{
+<script>
+      $(document).ready(function () {
+            var output = document.getElementById("PosterPreview");
+            output.src = $("#Poster").val();
+        });
+
+    $("#Poster").on("change", function () {
+        var output = document.getElementById("PosterPreview");
+        output.src = $(this).val();
+    })
+</script>
+} 
