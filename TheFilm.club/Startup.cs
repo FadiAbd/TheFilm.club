@@ -38,6 +38,7 @@ namespace TheFilm.club
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<IFilmsService, FilmsService>();
+            services.AddScoped<IOrdersService , OrdersService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(b => Basket.GetBasket(b));
             services.AddSession();

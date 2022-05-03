@@ -25,18 +25,19 @@
                     <tr>
                         <td class="align-middle">@item.Amount</td>
                         <td class="align-middle">@item.Film.Name</td>
-                        <td class="align-middle">@item.Film.Price.ToString("c")</td>@* "C" STANDS FOR CURRENCY*@
+                        <td class="align-middle">@item.Film.Price.ToString("c")</td>
                         <td class="align-middle">@((item.Amount*item.Film.Price).ToString("c"))</td>
-                        <td class="align-middle"></td>
+                        <td class="align-middle">
                             <a class="text-danger" asp-controller="CustomerOrders" asp-action="RemoveItemFromBasket"
-                            asp-route-itemid="@item.Film.Id">
+                            asp-route-id="@item.Film.Id">
                             <i class="bi bi-cart-dash"></i>
-                        </a>
+                           </a>
                         |
-                         <a class="text-success" asp-controller="CustomerOrders" asp-action="AddItemToBasket"
-                            asp-route-itemid="@item.Film.Id">
+                            <a class="text-success" asp-controller="CustomerOrders" asp-action="AddItemToBasket"
+                            asp-route-id="@item.Film.Id">
                             <i class="bi bi-cart-plus"></i>
-                        </a>
+                            </a>
+                      </td>
                     </tr>
                 }
             </tbody>
@@ -52,9 +53,14 @@
            </tfoot>
         </table>
         <div class="text-center">
+            <div class="btn-group">
+            <a class="btn btn-outline-primary" asp-controller="CustomerOrders" asp-action="CompleteOrder">
+                 Complete Order
+            </a>
             <a class="btn btn-outline-success" asp-controller="Films" asp-action="Index">
                  Add more items
             </a>
+            </div>
         </div>
     </div>
 </div>

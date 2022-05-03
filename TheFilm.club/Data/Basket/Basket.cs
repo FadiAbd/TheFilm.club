@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TheFilm.club.Models;
 
 namespace TheFilm.club.Data.Basket
@@ -80,7 +81,12 @@ namespace TheFilm.club.Data.Basket
         public double GetBasketTotal() => _dbContext.BasketItems.Where(n => n.BasketId ==
         BasketId).Select(n => n.Film.Price * n.Amount).Sum();
 
-
+        public async Task ClearBasketAsync()
+        {
+            var items =await  _dbContext.BasketItems.Where(n => n.BasketId == BasketId).ToListAsync();
+            _dbContext.BasketItems.RemoveRange(items);
+            await _dbContext.SaveChangesAsync();
+        }
 
     }
 }
