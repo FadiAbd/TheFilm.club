@@ -9,6 +9,7 @@ namespace TheFilm.club.Controllers
     public class ArtistsController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
+
         public ArtistsController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;

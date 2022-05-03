@@ -32,5 +32,12 @@ namespace TheFilm.club.Data
         public DbSet<Artist_Film> Artists_Films { get; set; }
         public DbSet<Theater> Theaters { get; set; }
         public DbSet<Maker> Makers { get; set; }
+        public DbSet<CustomerOrder> CustomerOrders{ get; set; }
+        public DbSet<CustomerOrderItem> CustomerOrderItems { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+       
+
+
+
     }
 }
