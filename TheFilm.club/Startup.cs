@@ -36,6 +36,7 @@ namespace TheFilm.club
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<IFilmsService, FilmsService>();
             services.AddScoped<IOrdersService , OrdersService>();
@@ -75,7 +76,7 @@ namespace TheFilm.club
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            DataInitializer.Seed(app);
+            
         }
     }
 }

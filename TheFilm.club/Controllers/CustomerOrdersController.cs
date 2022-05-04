@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TheFilm.club.Data.Basket;
 using TheFilm.club.Data.Services;
@@ -17,7 +18,7 @@ namespace TheFilm.club.Controllers
             _basket = basket;
             _ordersService = ordersService;
         }
-       
+        [Authorize]
         public IActionResult Basket()
         {
             var items = _basket.GetBasketItems();
@@ -29,7 +30,7 @@ namespace TheFilm.club.Controllers
             };
             return View(result);
         }
-
+        [Authorize]
         public async Task<IActionResult> AddItemToBasket(int id)
         {
             var item =await _filmsService.GetFilmByIdAsync(id);
@@ -39,6 +40,7 @@ namespace TheFilm.club.Controllers
             }
             return RedirectToAction(nameof(Basket));
         }
+        [Authorize]
         public async Task<IActionResult> RemoveItemFromBasket(int id)
         {
             var item = await _filmsService.GetFilmByIdAsync(id);
@@ -48,6 +50,7 @@ namespace TheFilm.club.Controllers
             }
             return RedirectToAction(nameof(Basket));
         }
+        [Authorize]
         public async Task<IActionResult> CompleteOrder()
         {
             var items = _basket.GetBasketItems();

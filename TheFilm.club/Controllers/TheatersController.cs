@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TheFilm.club.Data;
 using TheFilm.club.Models;
@@ -13,6 +14,7 @@ namespace TheFilm.club.Controllers
         {
             _dbContext = dbContext;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var viewModel = new TheatersIndexViewModel();
@@ -26,6 +28,7 @@ namespace TheFilm.club.Controllers
                     }).ToList();
             return View(viewModel);
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var viewModel = new TheatersNewViewModel();
@@ -33,6 +36,7 @@ namespace TheFilm.club.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(TheatersNewViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -47,7 +51,7 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             var viewModel = new TheatersEditViewModel();
@@ -59,6 +63,7 @@ namespace TheFilm.club.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id, TheatersEditViewModel viewModel)
         {
 
@@ -73,7 +78,7 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
-
+        [Authorize]
         public IActionResult Details(int id)
         {
             var viewModel = new TheatersDetailsViewModel();
@@ -86,7 +91,7 @@ namespace TheFilm.club.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
 
@@ -97,6 +102,7 @@ namespace TheFilm.club.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteConfirmed(int id)
         {
             var dbTheater = _dbContext.Theaters.Find(id);

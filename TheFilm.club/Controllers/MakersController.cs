@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using TheFilm.club.Data;
@@ -14,6 +15,7 @@ namespace TheFilm.club.Controllers
         {
             _dbContext = dbContext;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var viewModel = new MakersIndexViewModel();
@@ -28,6 +30,7 @@ namespace TheFilm.club.Controllers
             return View(viewModel);
         }
         //Get/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var viewModel = new MakersNewViewModel();
@@ -35,6 +38,7 @@ namespace TheFilm.club.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(MakersNewViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -50,6 +54,7 @@ namespace TheFilm.club.Controllers
             return View(viewModel);
         }
         //Get/Edit
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             var viewModel = new MakersEditViewModel();
@@ -61,6 +66,7 @@ namespace TheFilm.club.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id, MakersEditViewModel viewModel)
         {
 
@@ -75,7 +81,7 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
-
+        [Authorize]
         public IActionResult Details(int id)
         {
             var viewModel = new MakersDetailsViewModel();
@@ -88,7 +94,7 @@ namespace TheFilm.club.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
 
@@ -97,7 +103,9 @@ namespace TheFilm.club.Controllers
             if (dbDel == null) return View("Not foud");
             return View(viewModel);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
+       
         public IActionResult DeleteConfirmed(int id)
         {
             var dbDel = _dbContext.Makers.Find(id);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TheFilm.club.Data;
 using TheFilm.club.Models;
@@ -14,6 +15,7 @@ namespace TheFilm.club.Controllers
         {
             _dbContext = dbContext;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var viewModel = new ArtistsIndexViewModel();
@@ -27,7 +29,7 @@ namespace TheFilm.club.Controllers
                 }).ToList();
             return View(viewModel);
         }
-
+        [Authorize(Roles="Admin")]
         //Get
         public IActionResult Create()
         {
@@ -35,7 +37,7 @@ namespace TheFilm.club.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles="Admin")]
         [HttpPost]
         public IActionResult Create(ArtistsNewViewModel viewModel)
         {
@@ -51,6 +53,7 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
+        [Authorize(Roles = "Admin")]
         //Get/Edit
         public IActionResult Edit(int id)
         {
@@ -62,6 +65,7 @@ namespace TheFilm.club.Controllers
 
             return View(viewModel);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(int id, ArtistsEditViewModel viewModel)
         {
@@ -77,7 +81,7 @@ namespace TheFilm.club.Controllers
             }
             return View(viewModel);
         }
-
+        [Authorize]
         //Get/Details
         public IActionResult Details(int id)
         {
@@ -89,7 +93,7 @@ namespace TheFilm.club.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")]
         //Get/Delete/Id
         public ActionResult Delete(int id)
         {
@@ -98,7 +102,7 @@ namespace TheFilm.club.Controllers
             if (dbAct == null) return View("NotFound");
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {

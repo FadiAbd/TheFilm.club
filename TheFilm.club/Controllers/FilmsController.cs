@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,12 +15,13 @@ namespace TheFilm.club.Controllers
         {
             _service = service;
         }
+        [Authorize]
         public async Task <IActionResult> Index()
         {
            var allFilms = await _service.GetAllAsync(n => n.Theater);
             return View(allFilms);
         }
-
+        [Authorize]
         public async Task<IActionResult> Filter(string searchString)
         {
             var allFilms = await _service.GetAllAsync(n => n.Theater);
@@ -31,13 +33,14 @@ namespace TheFilm.club.Controllers
             }
             return View("Index",allFilms);
         }
-
+        [Authorize]
         //Get/Films/Details/1
         public async Task<IActionResult> Details(int id)
         {
             var filmDetail = await _service.GetFilmByIdAsync(id);
             return View(filmDetail);
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             var viewModel = await _service.NewFilmValues();
@@ -46,7 +49,9 @@ namespace TheFilm.club.Controllers
             ViewBag.Artists = new SelectList(viewModel.Theaters, "Id", "Name");
             return View();
         }
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(FilmsNewViewModel film)
         {
             if (!ModelState.IsValid)
@@ -61,6 +66,7 @@ namespace TheFilm.club.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var filmDetails = await _service.GetFilmByIdAsync(id);
@@ -89,7 +95,9 @@ namespace TheFilm.club.Controllers
             
             return View(result);
         }
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id,FilmsNewViewModel film)
         {
             if (id != film.Id) return View("NotFound");
