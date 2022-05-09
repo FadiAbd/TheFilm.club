@@ -28,20 +28,25 @@
                         <td class="align-middle">
                                @Html.DisplayFor(modelItem => maker.Biography)
                         </td>
-                      <td class="align-middle">
-                            <a asp-controller="Makers" asp-action="Edit" asp-route-id="@maker.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a> |
-                             <a asp-controller="Makers" asp-action="Details" asp-route-id="@maker.Id" class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a> |
-                              <a asp-controller="Makers" asp-action="Delete" asp-route-id="@maker.Id" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Delete</a> 
-                      </td>
-                    
-                </tr>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td class="align-middle">
+                                <a asp-controller="Makers" asp-action="Edit" asp-route-id="@maker.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a> |
+                                <a asp-controller="Makers" asp-action="Details" asp-route-id="@maker.Id" class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a> |
+                                <a asp-controller="Makers" asp-action="Delete" asp-route-id="@maker.Id" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Delete</a> 
+                            </td>
+                        }
+                    </tr>
             }
 
          </tbody>
     </table>
   </div>
  </div>
-  
-@await Html.PartialAsync("_CreateItem", "Makers") 
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+   @await Html.PartialAsync("_CreateItem", "Makers")  
+}
+
 
 

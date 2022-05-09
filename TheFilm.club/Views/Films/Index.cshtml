@@ -17,11 +17,11 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Name
-                                    <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                   @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                   @* <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>*@
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                                    {
                                         <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                    }*@
+                                    }
                                 </h5>
                             </p>
                         </div>
@@ -33,7 +33,6 @@
                         <div class="card-body">
                             <p class="card-text">@item.Description</p>
                             <p class="card-text"><b>Cinema: </b>@item.Theater.Name</p>
-                          @*  <p class="card-text"><b>Producer: </b>@item.Producer.Name</p>*@
                             <p class="card-text"><b>Category: </b>@item.FilmCategory</p>
                             <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
                             <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
@@ -74,6 +73,9 @@
         </div>
     }
 </div>
- 
-@await Html.PartialAsync("_CreateItem", "Films") 
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    @await Html.PartialAsync("_CreateItem", "Films")
+}
+
 
