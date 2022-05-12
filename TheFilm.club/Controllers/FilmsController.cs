@@ -40,13 +40,14 @@ namespace TheFilm.club.Controllers
             var filmDetail = await _service.GetFilmByIdAsync(id);
             return View(filmDetail);
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             var viewModel = await _service.NewFilmValues();
             ViewBag.Theaters = new SelectList(viewModel.Theaters,"Id","Name");
-            ViewBag.Makers = new SelectList(viewModel.Theaters, "Id", "Name");
-            ViewBag.Artists = new SelectList(viewModel.Theaters, "Id", "Name");
+            ViewBag.Makers = new SelectList(viewModel.Makers, "Id", "Name");
+            ViewBag.Artists = new SelectList(viewModel.Artists, "Id", "Name");
             return View();
         }
 
@@ -57,9 +58,9 @@ namespace TheFilm.club.Controllers
             if (!ModelState.IsValid)
             {
                 var filmsViewModel = await _service.NewFilmValues();
-                ViewBag.Cinemas = new SelectList(filmsViewModel.Theaters, "Id", "Name");
-                ViewBag.Producers = new SelectList(filmsViewModel.Makers, "Id", "Name");
-                ViewBag.Actors = new SelectList(filmsViewModel.Artists, "Id", "Name");
+                ViewBag.Theaters = new SelectList(filmsViewModel.Theaters, "Id", "Name");
+                ViewBag.Makers = new SelectList(filmsViewModel.Makers, "Id", "Name");
+                ViewBag.Artists = new SelectList(filmsViewModel.Artists, "Id", "Name");
                 return View(film);
             }
             await _service.AddNewFilmAsync(film);
@@ -105,9 +106,9 @@ namespace TheFilm.club.Controllers
             if (!ModelState.IsValid)
             {
                 var filmsViewModel = await _service.NewFilmValues();
-                ViewBag.Cinemas = new SelectList(filmsViewModel.Theaters, "Id", "Name");
-                ViewBag.Producers = new SelectList(filmsViewModel.Makers, "Id", "Name");
-                ViewBag.Actors = new SelectList(filmsViewModel.Artists, "Id", "Name");
+                ViewBag.Theaters = new SelectList(filmsViewModel.Theaters, "Id", "Name");
+                ViewBag.Makers = new SelectList(filmsViewModel.Makers, "Id", "Name");
+                ViewBag.Artists = new SelectList(filmsViewModel.Artists, "Id", "Name");
                 return View(film);
             }
             await _service.UpdateFilmAsync(film);
