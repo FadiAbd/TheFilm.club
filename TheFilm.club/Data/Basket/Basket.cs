@@ -25,7 +25,7 @@ namespace TheFilm.club.Data.Basket
             return BasketItems ?? (BasketItems = _dbContext.BasketItems.Where(n => n.BasketId ==
             BasketId).Include(n => n.Film).ToList());
         }
-
+        //Not so important right now .... 
         public static Basket GetBasket(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;

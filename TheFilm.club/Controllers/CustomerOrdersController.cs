@@ -18,6 +18,8 @@ namespace TheFilm.club.Controllers
             _basket = basket;
             _ordersService = ordersService;
         }
+      
+
         [Authorize]
         public IActionResult Basket()
         {
